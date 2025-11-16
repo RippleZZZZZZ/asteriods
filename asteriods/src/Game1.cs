@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using asteriods.src.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace asteriods
 {
@@ -9,8 +11,7 @@ namespace asteriods
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D test;
-        float rotationAngle;
+        Player player = new Player();
 
         public Game1()
         {
@@ -30,7 +31,13 @@ namespace asteriods
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            test = Content.Load<Texture2D>("test");
+            if(Entity.entities.Count > 0 )
+            {
+                foreach (var entity in Entity.entities)
+                {
+                    entity.Load(Content);
+                }
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -44,22 +51,24 @@ namespace asteriods
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            rotationAngle += deltaTime;
-
-            float circle = MathHelper.Pi * 2;
-
-            rotationAngle %= circle;
+            Debug.WriteLine(Entity.entities.Count);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            _spriteBatch.Draw(test, new Vector2(10, 10), null, Color.White, rotationAngle, new Vector2(10, 10), 1.0f, SpriteEffects.None, 0f);
+            if(Entity.entities.Count > 0)
+            {
+                foreach (var entity in Entity.entities)
+                {
+                    entity.Draw(_spriteBatch);
+                }
+            }
 
             _spriteBatch.End();
 
