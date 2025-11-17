@@ -1,7 +1,9 @@
-﻿using asteriods.src.Entities;
+﻿using asteriods.src;
+using asteriods.src.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Diagnostics;
 
 namespace asteriods
@@ -10,6 +12,9 @@ namespace asteriods
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        public static int windowWidth = 975;
+        public static int windowHeight = 975;
 
         Player player = new Player();
 
@@ -24,6 +29,10 @@ namespace asteriods
         {
             // TODO: Add your initialization logic here
 
+            _graphics.PreferredBackBufferWidth = windowWidth;
+            _graphics.PreferredBackBufferHeight = windowHeight;
+            _graphics.ApplyChanges();
+
             base.Initialize();
         }
 
@@ -31,15 +40,22 @@ namespace asteriods
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            if(Entity.entities.Count > 0 )
+            // TODO: use this.Content to load your game content here
+
+
+            try
             {
                 foreach (var entity in Entity.entities)
                 {
                     entity.Load(Content);
                 }
             }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
 
-            // TODO: use this.Content to load your game content here
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -49,9 +65,12 @@ namespace asteriods
 
             // TODO: Add your update logic here
 
+            IsFixedTimeStep = false;
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Debug.WriteLine(Entity.entities.Count);
+            player.Update(deltaTime);
+            Controller.Update();
 
             base.Update(gameTime);
         }
@@ -60,15 +79,21 @@ namespace asteriods
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
 
-            if(Entity.entities.Count > 0)
+
+            try
             {
                 foreach (var entity in Entity.entities)
                 {
                     entity.Draw(_spriteBatch);
                 }
             }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
 
             _spriteBatch.End();
 
