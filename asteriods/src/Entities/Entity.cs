@@ -12,6 +12,7 @@ namespace asteriods.src.Entities
         public string textureID;
 
         public static List<Entity> entities = new List<Entity>();
+        public static List<Bullet> bullets = new List<Bullet>();
 
         public Entity()
         {
@@ -34,10 +35,10 @@ namespace asteriods.src.Entities
 
         protected void Bounds()
         {
-            if (position.X < -75) position.X = Game1.windowWidth + 75;
-            if (position.Y < -75) position.Y = Game1.windowHeight + 75;
-            if (position.X > Game1.windowWidth + 75) position.X = -75;
-            if (position.Y > Game1.windowHeight + 75) position.Y = -75;
+            if (position.X < -50) position.X = Game1.windowWidth + 50;
+            if (position.Y < -50) position.Y = Game1.windowHeight + 50;
+            if (position.X > Game1.windowWidth + 50) position.X = -50;
+            if (position.Y > Game1.windowHeight + 50) position.Y = -50;
         }
 
         // loading and drawing
@@ -48,7 +49,7 @@ namespace asteriods.src.Entities
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Rect, Color.White);
+            spriteBatch.Draw(texture, position, Color.White);
         }
     }
 }

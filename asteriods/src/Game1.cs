@@ -17,6 +17,7 @@ namespace asteriods
         public static int windowHeight = 975;
 
         Player player = new Player();
+        Bullet bullet = new Bullet();
 
         public Game1()
         {
@@ -68,6 +69,11 @@ namespace asteriods
             IsFixedTimeStep = false;
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            //foreach(var bullet in Entity.bullets)
+            {
+                bullet.Update(deltaTime);
+            }
 
             player.Update(deltaTime);
             Controller.Update();

@@ -9,7 +9,7 @@ namespace asteriods.src.Entities
     internal class Player : Entity
     {
         float speed = 0f;
-        float angle = 0f;
+        public static float angle = -1.55555f;
         Vector2 origin;
         public Player() : base()
         {
@@ -22,9 +22,11 @@ namespace asteriods.src.Entities
         {
             Vector2 velocity = Vector2.Zero; // 
 
-            if(!Controller.W) if (speed >= 0f) speed -= 2.00f; if (speed < 0f) speed = 0f;
+            if(!Controller.W) if (speed >= 0f) speed -= 250.00f * deltaTime / 2; if (speed < 0f) speed = 0f;
 
-            if (Controller.W) if (speed < 500f) speed += 8f;
+            if (Controller.W) if (speed < 500f) speed += 450f * deltaTime / 2;
+
+            if (Controller.Space) Entity.bullets.Add(new Bullet());
 
             velocity.X = (float)Math.Cos(angle) * speed;
             velocity.Y = (float)Math.Sin(angle) * speed;
@@ -37,15 +39,15 @@ namespace asteriods.src.Entities
         {
             if (Controller.D)
             {
-                angle += 0.06f;
-                if (angle > 0) speed -= angle * 2.5f;
-                if (angle < 0) speed += angle * 2.5f;
+                angle += 2.0f * deltaTime;
+                if (angle > 0) speed -= (angle * 2.5f) * deltaTime;
+                if (angle < 0) speed += (angle * 2.5f) * deltaTime;
             }
             if (Controller.A)
             {
-                angle -= 0.06f;
-                if (angle > 0) speed -= angle * 2.5f;
-                if (angle < 0) speed += angle * 2.5f;
+                angle -= 2.0f * deltaTime;
+                if (angle > 0) speed -= (angle * 2.5f) * deltaTime;
+                if (angle < 0) speed += (angle * 2.5f) * deltaTime;
             }
 
             float circle = MathHelper.Pi * 2;
