@@ -9,7 +9,7 @@ namespace asteriods.src.Entities
     internal class Player : Entity
     {
         float speed = 0f;
-        public static float angle = -1.55555f;
+        public float angle = -1.55555f;
         Vector2 origin;
         public Player() : base()
         {

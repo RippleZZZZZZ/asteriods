@@ -10,6 +10,7 @@ namespace asteriods.src.Entities
         public Vector2 position;
         public Texture2D texture;
         public string textureID;
+        protected int scale;
 
         public static List<Entity> entities = new List<Entity>();
         public static List<Bullet> bullets = new List<Bullet>();
@@ -21,7 +22,7 @@ namespace asteriods.src.Entities
         
         public Rectangle Rect
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, 32, 32);  }
+            get { return new Rectangle((int)position.X, (int)position.Y, scale, scale);  }
         }
 
         protected virtual void Movement(float deltaTime)

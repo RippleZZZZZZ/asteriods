@@ -70,10 +70,13 @@ namespace asteriods
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //foreach(var bullet in Entity.bullets)
+            foreach(var bullet in Entity.bullets)
             {
+                bullet.Tracking(player.angle, player.position);
                 bullet.Update(deltaTime);
             }
+
+            Entity.bullets.Add(new Bullet());
 
             player.Update(deltaTime);
             Controller.Update();
