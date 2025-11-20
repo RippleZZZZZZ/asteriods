@@ -9,8 +9,10 @@ namespace asteriods.src.Entities
     {
         public Vector2 position;
         public Texture2D texture;
+        public Texture2D hitbox;
         public string textureID;
-        protected int scale;
+        public string hitboxID = "test";
+        public int scale;
 
         public static List<Entity> entities = new List<Entity>();
         public static List<Bullet> bullets = new List<Bullet>();
@@ -20,9 +22,9 @@ namespace asteriods.src.Entities
             entities.Add(this);
         }
         
-        public Rectangle Rect
+        public Rectangle Hitbox
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, scale, scale);  }
+            get { return new Rectangle((int)position.X - (scale / 2), (int)position.Y - (scale / 2), scale, scale);  }
         }
 
         protected virtual void Movement(float deltaTime)
@@ -45,11 +47,13 @@ namespace asteriods.src.Entities
         // loading and drawing
         public void Load(ContentManager Content)
         {
+            hitbox = Content.Load<Texture2D>(hitboxID);
             texture = Content.Load<Texture2D>(textureID);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            if (Controller.H) spriteBatch.Draw(hitbox, Hitbox, Color.White);
             spriteBatch.Draw(texture, position, Color.White);
         }
     }

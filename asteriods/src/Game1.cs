@@ -72,7 +72,7 @@ namespace asteriods
 
             foreach(var bullet in Entity.bullets)
             {
-                bullet.Tracking(player.angle, player.position);
+                bullet.Tracking(player.angle, player.position, player.scale);
                 bullet.Update(deltaTime);
             }
 

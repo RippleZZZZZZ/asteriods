@@ -12,7 +12,6 @@ namespace asteriods.src.Entities
         public Bullet() : base()
         {
             position = new Vector2(0f, 0f);
-            textureID = "test";
             scale = 16;
             Entity.bullets.Add(this);
         }
@@ -27,11 +26,11 @@ namespace asteriods.src.Entities
             position += velocity * deltaTime;
         }
 
-        public void Tracking(float angle, Vector2 playerPos)
+        public void Tracking(float angle, Vector2 playerPos, int playerScale)
         {
             this.angle = angle;
-            position.X = playerPos.X - (Rect.Width / 2);
-            position.Y = playerPos.Y - (Rect.Height / 2);
+            position.X = playerPos.X;
+            position.Y = playerPos.Y;
             position.X += 25 * (float)Math.Cos(this.angle);
             position.Y += 25 * (float)Math.Sin(this.angle);
         }

@@ -16,11 +16,12 @@ namespace asteriods.src.Entities
             position = new Vector2((Game1.windowWidth / 2 ) - (64 / 2), (Game1.windowHeight / 2) - (64 / 2));
             textureID = "aShip";
             origin = new Vector2(64 / 2, 64 / 2);
+            scale = 24;
         }
 
         protected override void Movement(float deltaTime)
         {
-            Vector2 velocity = Vector2.Zero; // 
+            Vector2 velocity = Vector2.Zero;
 
             if(!Controller.W) if (speed >= 0f) speed -= 250.00f * deltaTime / 2; if (speed < 0f) speed = 0f;
 
@@ -31,7 +32,6 @@ namespace asteriods.src.Entities
             velocity.X = (float)Math.Cos(angle) * speed;
             velocity.Y = (float)Math.Sin(angle) * speed;
 
-            Debug.WriteLine(angle);
             position += velocity * deltaTime;
         }
 
@@ -40,8 +40,8 @@ namespace asteriods.src.Entities
             if (Controller.D)
             {
                 angle += 2.0f * deltaTime;
-                if (angle > 0) speed -= (angle * 2.5f) * deltaTime;
-                if (angle < 0) speed += (angle * 2.5f) * deltaTime;
+                if (angle > 0) speed -= (angle * 25) * deltaTime;
+                if (angle < 0) speed += (angle * 25f) * deltaTime;
             }
             if (Controller.A)
             {
@@ -65,6 +65,7 @@ namespace asteriods.src.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0f);
+            if(Controller.H) spriteBatch.Draw(hitbox, Hitbox, Color.White);
         }
     }
 }

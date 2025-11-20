@@ -5,7 +5,7 @@ namespace asteriods.src
 {
     internal class Controller
     {
-        public static bool W, A, S, D, Space;
+        public static bool W, A, S, D, H, Space;
 
         public static void KeyListener()
         {
@@ -15,12 +15,14 @@ namespace asteriods.src
             if (keystate.IsKeyDown(Keys.A)) A = true;
             if (keystate.IsKeyDown(Keys.S)) S = true;
             if (keystate.IsKeyDown(Keys.D)) D = true;
+            if (keystate.IsKeyDown(Keys.H)) H = true;
             if (keystate.IsKeyDown(Keys.Space)) Space = true;
 
             if (keystate.IsKeyUp(Keys.W)) W = false;
             if (keystate.IsKeyUp(Keys.A)) A = false;
             if (keystate.IsKeyUp(Keys.S)) S = false;
             if (keystate.IsKeyUp(Keys.D)) D = false;
+            if (keystate.IsKeyUp(Keys.H)) H = false;
             if (keystate.IsKeyUp(Keys.Space)) Space = false;
         }
 
